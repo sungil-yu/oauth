@@ -15,13 +15,14 @@ public class LoginController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "login";
     }
 
     @PostMapping("/login")
     public String loginResponse() {
-
-
-        return "index";
+        return "main";
     }
+
+
+
 }
