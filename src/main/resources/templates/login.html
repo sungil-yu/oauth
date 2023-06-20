@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 <body>
 
    <div class="login-container" >
-       <img src="../static/img/logo.jpg" style="width: 100px">
-       <h1>Oncerun에 오신 것을 환영합니다.</h1>
+       <img th:src="@{/img/logo.jpg}" style="width: 100px">
+       <h1>OnceRun에 오신 것을 환영합니다.</h1>
          <form action="/login" method="post">
               <div class="form-group">
                 <label for="username">email</label>
@@ -26,6 +26,10 @@
            <a href="#" class="facebook-button">페이스북으로 계속하기</a>
            <a href="#" class="naver-button">네이버로 계속하기</a>
            <a href="#" class="google-button">구글로 계속하기</a>
+       </div>
+
+       <div>
+           <a th:href="@{/download/attendanceExcel}" class="excel-download">Download Attendance Excel</a>
        </div>
 
    </div>

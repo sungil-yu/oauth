@@ -9,15 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
-@Configuration
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login", "/", "/static/css/**", "/static/img/**").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -27,11 +26,6 @@ public class SecurityConfig {
 
 
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return webSecurity -> webSecurity.ignoring().requestMatchers("/resources/**", "/static/**", "/css/**", "/img/**");
     }
 
 }
