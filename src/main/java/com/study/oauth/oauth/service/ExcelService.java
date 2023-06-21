@@ -1,6 +1,8 @@
-package com.study.oauth.oauth.controller;
+package com.study.oauth.oauth.service;
 
 import com.study.oauth.oauth.domain.Worker;
+import com.study.oauth.oauth.utils.ProgressTrackingOutputStream;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.*;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Slf4j
 @Service
 public class ExcelService {
 
@@ -23,7 +27,7 @@ public class ExcelService {
     }
 
     private void createWorker() {
-        for (int i =0 ; i < 30; i++){
+        for (int i =0 ; i < 10; i++){
             workers.add(new Worker("name" + i, "email" + i, "static/img/logo.jpg", "/static/video/1.mp4", LocalDateTime.now()));
         }
     }
@@ -87,16 +91,21 @@ public class ExcelService {
                 }
             }
 
-            try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/templates/template.xlsx")) {
+            try (ProgressTrackingOutputStream fileOut = new ProgressTrackingOutputStream(new File("src/main/resources/templates/template.xlsx"))) {
                 wb.write(fileOut);
+                log.info("file write processing is done");
+                log.info("issue an file create done event in the situation");
+            }catch (Exception e){
+                log.info("file write processing is failed");
+                log.info("issue an file create failed event in the situation");
+                throw new RuntimeException(e);
             }
 
-            System.out.println("Done");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         long endTime = System.currentTimeMillis();
-        System.out.println("That took " + (endTime - startTime) / 1000 + " seconds");
+        log.info("That took " + (endTime - startTime) / 1000 + " seconds");
     }
 }
