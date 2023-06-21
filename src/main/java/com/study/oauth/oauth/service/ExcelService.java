@@ -10,27 +10,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Slf4j
 @Service
 public class ExcelService {
-
-    private static List<Worker> workers;
-
-    public ExcelService() {
-        workers = new ArrayList<>();
-        createWorker();
-    }
-
-    private void createWorker() {
-        for (int i =0 ; i < 10; i++){
-            workers.add(new Worker("name" + i, "email" + i, "static/img/logo.jpg", "/static/video/1.mp4", LocalDateTime.now()));
-        }
-    }
 
     private void createHeader(XSSFSheet sheet) {
         XSSFRow row = sheet.createRow(0);
@@ -45,7 +29,7 @@ public class ExcelService {
         sheet.setColumnWidth(3, 256 * 20);
     }
 
-    public void embedExcelFile() {
+    public void embedExcelFile(List<Worker> workers) {
         long startTime = System.currentTimeMillis();
 
         try (XSSFWorkbook wb = new XSSFWorkbook()) {

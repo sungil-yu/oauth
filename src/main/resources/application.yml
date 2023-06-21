@@ -1,4 +1,28 @@
 
 spring:
   profiles:
-    include: oauth2
+    include: oauth2, logging
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 100
+    show-sql: true
+
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+
+
