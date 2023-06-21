@@ -26,12 +26,15 @@ public class SecurityConfig {
                 )
         );
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                .anyRequest().permitAll()
-        );
-
-//                .requestMatchers("/login", "/css/**", "/", "/img/**", "/download/**", "/static/**", "/h2-console/**").permitAll()
-//                .formLogin(AbstractHttpConfigurer::disable));
-
+                        .requestMatchers("/login", "/css/**", "/", "/img/**", "/download/**", "/static/**", "/h2-console/**").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(AbstractHttpConfigurer::disable)
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login").permitAll()
+                        .authorizationEndpoint(authorization -> authorization
+                                .baseUri("/login/oauth2/authorization")
+                        )
+                );
 
         return http.build();
     }

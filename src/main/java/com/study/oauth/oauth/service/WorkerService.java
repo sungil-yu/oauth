@@ -15,7 +15,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class WorkerService {
 
-
     private final WorkerRepository workerRepository;
 
     public List<Worker> getWorkersByDate(LocalDateTime start, LocalDateTime end) {
