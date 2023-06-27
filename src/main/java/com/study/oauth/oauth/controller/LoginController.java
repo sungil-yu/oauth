@@ -2,12 +2,16 @@ package com.study.oauth.oauth.controller;
 
 import com.study.oauth.oauth.service.CustomOAuth2AuthorizedClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Collection;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +32,21 @@ public class LoginController {
     @GetMapping("/main")
     public String main(Model model, OAuth2AuthenticationToken authentication) {
 
-        System.out.println("authentication = " + authentication);
 
-        model.addAttribute("userName", authentication.getName());
+
+        OAuth2User principal = authentication.getPrincipal();
+
+
+        authentication.getAuthorities().forEach(System.out::println);
+
+        System.out.println("--------------------");
+        System.out.println(principal.getAttributes());
+
+
+        model.addAttribute("userName", principal.getAttribute("name"));
+        model.addAttribute("userEmail", principal.getAttributes().get("email"));
+        model.addAttribute("userImageUrl", principal.getAttributes().get("picture"));
+
 
 
 

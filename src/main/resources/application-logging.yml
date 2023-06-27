@@ -4,3 +4,4 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.web: DEBUG
+    org.springframework.security.web.DefaultRedirectStrategy: DEBUG
