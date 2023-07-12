@@ -29,29 +29,11 @@ public class LoginController {
 
     @GetMapping("/main")
     public String main(Model model, OAuth2AuthenticationToken authentication) {
-<<<<<<< Updated upstream
-
-
-
         OAuth2User principal = authentication.getPrincipal();
-
-
-        authentication.getAuthorities().forEach(System.out::println);
-
-        System.out.println("--------------------");
-        System.out.println(principal.getAttributes());
-
-
         model.addAttribute("userName", principal.getAttribute("name"));
         model.addAttribute("userEmail", principal.getAttributes().get("email"));
         model.addAttribute("userImageUrl", principal.getAttributes().get("picture"));
-
-
-
-
-=======
         model.addAttribute("userName", authentication.getName());
->>>>>>> Stashed changes
         return "main";
     }
 
