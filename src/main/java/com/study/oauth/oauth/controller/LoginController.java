@@ -17,8 +17,6 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
-
     @GetMapping("/login")
     public String loginRequest() {
         return "login";
@@ -31,6 +29,7 @@ public class LoginController {
 
     @GetMapping("/main")
     public String main(Model model, OAuth2AuthenticationToken authentication) {
+<<<<<<< Updated upstream
 
 
 
@@ -50,6 +49,9 @@ public class LoginController {
 
 
 
+=======
+        model.addAttribute("userName", authentication.getName());
+>>>>>>> Stashed changes
         return "main";
     }
 

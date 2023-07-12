@@ -22,10 +22,13 @@ public class CustomOAuth2AuthorizedClientService implements OAuth2UserService<OA
         OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
 
         Collection<? extends GrantedAuthority> authorities = oAuth2User.getAuthorities();
+<<<<<<< Updated upstream
         OAuth2AccessToken accessToken = userRequest.getAccessToken();
 
 
 
+=======
+>>>>>>> Stashed changes
 
         return oAuth2User;
     }

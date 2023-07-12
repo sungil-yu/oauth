@@ -5,6 +5,7 @@ import com.study.oauth.oauth.exception.NotFoundWorkerByDate;
 import com.study.oauth.oauth.service.ExcelService;
 import com.study.oauth.oauth.service.WorkerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -27,21 +28,19 @@ public class AttendanceExcelController {
 
     private final WorkerService workerService;
 
-
     @GetMapping("/download/attendanceExcel")
     @ResponseBody
     public ResponseEntity<Resource> attendanceExcel(@RequestParam(value = "start", required = false) LocalDateTime start,
                                                     @RequestParam(value = "end", required = false) LocalDateTime end) {
-
         List<Worker> workers = workerService.getWorkersByDate(start, end);
 
-        if (workers.size() == 0) {
+        if (workers.isEmpty()) {
             workers = workerService.getWorkers();
         }
 
         excelService.embedExcelFile(workers);
 
-        FileSystemResource resource = new FileSystemResource(new File("src/main/resources/templates/template.xlsx"));
+        ClassPathResource resource = new ClassPathResource("templates/template.xlsx");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
